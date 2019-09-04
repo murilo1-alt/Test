@@ -1,23 +1,50 @@
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+murilo1-alt
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+ 
+import java.util.concurrent.TimeUnit;
+ 
+public class driver {
+ 
+ 
+    public static void main(String[] args) {
+       System.setProperty("webdriver.chrome.driver", "C:\\Usuario\\TESTE\\chromedriver.exe");
+ 
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+ 
+        driver.get("Submarino.com.br");
+ 
+ 
+ 
+        WebElement caixaDeBusca = driver.findElement(By.id("strBusca"));
+        caixaDeBusca.sendKeys("Livros");
+        caixaDeBusca.clear("Do mil ao Milhão");
+        caixaDeBusca.sendKeys("");
+ 
+ 
+ 
+        WebElement botaoBusca = driver.findElement(By.id("btnOK"));
+        botaoBusca.click();
+ 
+ 
+        WebElement resultadoPesquisa = driver.findElement(By.className("nm-product-name"));
+        String resultado = resultadoPesquisa.getText();
+        resultado = resultado.toLowerCase();
+ 
+        if(resultado.contains("Livros") || resultado.contains("Do mil ao Milhão") ) {
+            System.out.println("Sucesso");
+        } else {
+            System.out.println("Erro na pesquisa");
+            System.out.println("O resultado foi:não encontrado " + resultado);
+        }
+ 
+ 
+        driver.close();
+    }
+ 
+ 
+ 
+}
